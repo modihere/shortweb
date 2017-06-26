@@ -26,7 +26,7 @@
   
 function returnSuccess(data, textStatus, jqXHR) {
  if(data.url) {
- $('#url-result').text(data.url);
+  $('#url-result').html("Your Shorted URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>");
  $('#url').val("");
  } else {
  $('#url-result').text("Do not submit blank."); 
