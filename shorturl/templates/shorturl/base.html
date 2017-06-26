@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>{% block title %}Welcome to mysite{% endblock %}</title>
+ {% load staticfiles %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+ <link rel="stylesheet" type="text/css" href="{% static 'shorturl/css/custom.css' %}" />
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script type="text/javascript">
+ $(function() {
+ $('#submitButton').click(function() {
+ $.ajax({
+ type: "POST",
+ url: "/makeshort/",
+ data: {
+ 'url' : $('#url').val(),
+ 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+ },
+ success: returnSuccess,
+ dataType: 'json'
+ });
+ });
+});
+  
+function returnSuccess(data, textStatus, jqXHR) {
+ if(data.url) {
+ $('#url-result').text(data.url);
+ $('#url').val("");
+ } else {
+ $('#url-result').text("Do not submit blank."); 
+ }
+   
+}
+</script>
+<body>
+<div id="wrap">
+<header>
+ <h1><a href="{% url 'shorturl:home' %}">URL Shortner</a><small>Shorten the URL</small></h1>
+</header>
+  
+<div id="content">
+{% block content %}
+  
+{% endblock %}
+</div>
+</div>
+</body>
+</html>
