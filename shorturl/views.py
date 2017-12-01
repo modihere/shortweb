@@ -8,7 +8,7 @@ from django.conf import settings
 from django.template.context_processors import csrf
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
- 
+record = {} 
 def index(request):
     c = {}
     c.update(csrf(request))
@@ -22,11 +22,16 @@ def redirect_original(request, short_id):
  
 def shorten_url(request):
     url = request.POST.get("url", '')
-    if not (url == ''):
+    if record.has_key(url)==True:
+        short_id = record.get(url)
+        response_data = {}
+        response_data['url'] = settings.SITE_URL + "/" + short_id
+        return HttpResponse(json.dumps(response_data),  content_type="application/json")
+    elif not (url == ''):
         short_id = get_short_code()
+        record.update({url:short_id})
         b = urls(httpurl=url, short_id=short_id)
         b.save()
- 
         response_data = {}
         response_data['url'] = settings.SITE_URL + "/" + short_id
         return HttpResponse(json.dumps(response_data),  content_type="application/json")
