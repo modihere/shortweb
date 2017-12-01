@@ -22,7 +22,7 @@ def redirect_original(request, short_id):
  
 def shorten_url(request):
     url = request.POST.get("url", '')
-    if record.has_key(url)==True:
+    if url in record:
         short_id = record.get(url)
         response_data = {}
         response_data['url'] = settings.SITE_URL + "/" + short_id
