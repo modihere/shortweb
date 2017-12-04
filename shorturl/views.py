@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response, get_object_or_404
 import random, string, json
 from shorturl.models import urls
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponsePermanentRedirect, HttpResponse
 from django.conf import settings
 from django.template.context_processors import csrf
 from django.core.validators import URLValidator
@@ -18,7 +18,7 @@ def redirect_original(request, short_id):
     url = get_object_or_404(urls, pk=short_id) # get object, if not found return 404 error
     url.count += 1
     url.save()
-    return HttpResponseRedirect(url.httpurl)
+    return HttpResponsePermanentRedirect(url.httpurl)
  
 def shorten_url(request):
     url = request.POST.get("url", '')
