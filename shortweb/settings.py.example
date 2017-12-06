@@ -1,3 +1,4 @@
+# Example Setting file, removed secret data such as SECRET_KEY etc.
 """
 Django settings for shortweb project.
 
@@ -20,7 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_6-65jqshij#_wrthj!xg$p@$s@^z#=en+_%h699s!b7@^opn5'
+#Removed security key
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

@@ -25,8 +25,15 @@
     cd url-shortener
     pip3 install -r requirements.txt
     ```
-    
-6. Run the live development server on your machine and test it.
+
+6. Run the following command in the terminal to generate a random key
+    ```
+    python -c "import string,random;uni=string.ascii_letters+string.digits+'$%&\()*+,-./:;<=>?@[]^_{|}';print(repr(''.join([random.SystemRandom().choice(uni) for i in range(50)])))"
+    ```
+
+7. Copy the generated random key and assign it to SECRET_KEY variable in shortweb/settings.py.example and save file as settings.py in same directory.
+
+8. Run the live development server on your machine and test it.
     ```
     python3 manage.py runserver
     ```
@@ -47,15 +54,15 @@
     Once the server is started, open http://127.0.0.1:8000 or whatever server you are running on in a web browser.
     Everything went well if the webpage loads correctly and you don't see any errors.
     
-7. Add a remote to your forked repository. This remote will be needed to push your changes to your repo.
+9. Add a remote to your forked repository. This remote will be needed to push your changes to your repo.
     ```
     git remote add myfork https://github.com/<username>/website.git
     ```
     
-8. Find an issue in this repository that you would like to and can fix.
+10. Find an issue in this repository that you would like to and can fix.
    Start working on an issue. Steps 9 and beyond will guide you in doing this.
    
-9. Create a new branch and switch to it. (make sure you are on master before doing this).
+11. Create a new branch and switch to it. (make sure you are on master before doing this).
     ```
     git branch mybranch
     git checkout mybranch
@@ -66,7 +73,7 @@
     git checkout -b mybranch
     ```
 
-10. Make your changes and then execute the tests to make sure you didn't break anything.
+12. Make your changes and then execute the tests to make sure you didn't break anything.
 
     ```
     python3 manage.py test
@@ -78,7 +85,7 @@
 
     *A small description of your changes is must in the commit messages.* 
 
-11. After you are done making changes, push the branch to your fork.
+13. After you are done making changes, push the branch to your fork.
     ```
     git push -u myfork mybranch
     ```
@@ -92,7 +99,7 @@
     You will be given some options such as pick, squash etc. with the commit in front of it, select the commit to squash by adding `squash` or s
     check here for more on [squashing and rebasing](https://www.devroom.io/2011/07/05/git-squash-your-latests-commits-into-one/)
 
-12. Then create a Pull Request from that branch using GitHub.
+14. Then create a Pull Request from that branch using GitHub.
 
 **What after you have submitted a Pull Request?**
 
