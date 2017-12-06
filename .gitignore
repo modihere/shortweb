@@ -2,3 +2,4 @@ __pycache__/
 migrations/
 shortweb/wsgi.py
 shortweb/settings.py
+db.sqlite3
