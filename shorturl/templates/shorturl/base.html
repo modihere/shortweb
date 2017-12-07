@@ -1,50 +1,72 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
- <title>{% block title %}Welcome to mysite{% endblock %}</title>
- {% load staticfiles %}
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
- <link rel="stylesheet" type="text/css" href="{% static 'shorturl/css/custom.css' %}" />
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
- <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}Welcome to mysite{% endblock %}</title>	
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<!-- import google Icon Font -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="{% static 'shorturl/css/materialize.min.css' %}"  media="screen,projection"/>
+	<!-- Import custom css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'shorturl/css/custom.css' %}" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<!-- Import Javascript file for materialize -->
+	<script type="text/javascript" src="{% static 'shorturl/js/materialize.min.js' %}"></script>
 </head>
 <script type="text/javascript">
- $(function() {
- $('#submitButton').click(function() {
- $.ajax({
- type: "POST",
- url: "/makeshort/",
- data: {
- 'url' : $('#url').val(),
- 'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
- },
- success: returnSuccess,
- dataType: 'json'
- });
- });
-});
-  
-function returnSuccess(data, textStatus, jqXHR) {
- if(data.url) {
-  $('#url-result').html("Your Shorted URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>");
- $('#url').val("");
- } else {
- $('#url-result').text("Do not submit blank."); 
- }
-   
-}
+
+	$(function() {
+		$('#submitButton').click(function() {
+			$.ajax({
+				type: "POST",
+				url: "/makeshort/",
+				data: {
+					'url' : $('#url').val(),
+					'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+				},
+				success: returnSuccess,
+				dataType: 'json'
+			});
+		});
+	});
+
+	function returnSuccess(data, textStatus, jqXHR) {
+		if(data.url) {
+			$('#url-result').html("Your Shorted URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>");
+			$('#url').val("");
+		} else {
+			$('#url-result').text("Do not submit blank."); 
+		}
+
+	}
 </script>
 <body>
-<div id="wrap">
-<header>
- <h1><a href="{% url 'shorturl:home' %}">URL Shortner</a><small>Shorten the URL</small></h1>
-</header>
-  
-<div id="content">
-{% block content %}
-  
-{% endblock %}
-</div>
-</div>
+	<!-- navbar -->
+	<nav>
+		<div class="nav-wrapper row white grey-text">
+			<div class="col s12">
+				<a href="{% url 'shorturl:home' %}" class="brand-logo ">Url Shortener</a>
+				<ul id="nav-mobile" class="right hide-on-med-and-down">
+					<li><a href="https://github.com/modihere/url-shortener" target="blank" class="btn grey">Contribute</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- //navbar -->
+	<div class="main">
+			{% block content %}
+			{% endblock %}
+	</div>
+
+	<!-- footer -->
+	<footer class="page-footer white">
+		<div class="row grey-text">
+			<div class="col s4 m3 l2"> 
+				<a href="https://gitter.im/url_shortener/Lobby" target="blank">Contact</a>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

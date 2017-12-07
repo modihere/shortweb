@@ -3,18 +3,47 @@
 {% block title %}URL Shortner - Make your URL shorter!{% endblock %}
   
 {% block content %}
-  
-<div class="panel panel-default">
- <div class="panel-body">
- <div class="col-sm-9">
- <input type="text" name="url" id="url" class="form-control input-sm" placeholder="http://www.facebook.com" onkeydown = "if(event.keyCode == 13)
- document.getElementById('submitButton').click()" />
- </div>
- <div class="col-sm-3">
- {% csrf_token %}
- <button id="submitButton" class="btn btn-primary">Submit</button></p> 
- </div>
- </div>
- <div class="panel-footer"><span id="url-result">Enter the URL above and click submit!</span></div>
+<!-- input -->
+<div class="input-section blue darken-2">
+	<div class="container row">
+		<div class="url-input-container col s12">
+			<input type="text" name="url" id="url" placeholder="Paste a link to shorten it" autocomplete="off" spellcheck="false" class="url-input"  onkeydown = "if(event.keyCode == 13)document.getElementById('submitButton').click()">
+		</div>
+		<div class="url-submit-container col s12">
+			{% csrf_token %}
+			<button id="submitButton" class="url-submit btn white text-grey">Shorten It</button>
+		</div>
+
+		<div class="url-output col l6 offset-l3 m8 offset-m2 s12 ">
+			<div class="card grey lighten-4 ">
+				<div class="card-content" id="url-result">
+					Enter the URL above and click SHORTEN IT!
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //input -->
+<!-- Description -->
+<div class="container row description-section text-center">
+	<div class="section s12">
+		<h3>Redefining URL</h3>
+		<p>Cut your links, into MUCH shorter ones, Just one click to go..!!</p>
+	</div>
+	<div class="section col l4 m6 s12">
+		<i class="small material-icons">insert_link</i>
+		<h5>Shorten</h5>
+		<p>Shorten your URL so it’s ready to be shared everywhere</p>
+	</div>
+	<div class="section col l4 m6 s12">
+		<i class="small material-icons">mood</i>
+		<h5>Easy</h5>
+		<p>Very simple and easy to use</p>
+	</div>
+	<div class="section col l4 m6 s12">
+		<i class="small material-icons">people</i>
+		<h5>Open Source</h5>
+		<p>URL Shortener is free and open source</p>
+	</div>
 </div>
 {% endblock %}
