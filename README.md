@@ -31,7 +31,13 @@
     python -c "import string,random;uni=string.ascii_letters+string.digits+'$%&\()*+,-./:;<=>?@[]^_{|}';print(repr(''.join([random.SystemRandom().choice(uni) for i in range(50)])))"
     ```
 
-7. Copy the generated random key and assign it to SECRET_KEY variable in shortweb/settings.py.example and save file as settings.py in same directory.
+    Copy the generated random key and assign it to SECRET_KEY variable in shortweb/settings.py.example and save file as settings.py in same directory.
+
+7. Migrate your database.
+    ```
+    python3 manage.py makemigrations
+    python3 manage.py migrate 
+    ``` 
 
 8. Run the live development server on your machine and test it.
     ```
@@ -48,7 +54,7 @@
     If you want to change the server’s IP, pass it along with the port. So to listen on all public IPs (useful if you want to show off your work on other computers on your network), use:
 
     ```
-    python manage.py runserver 0.0.0.0:8000
+    python3 manage.py runserver 0.0.0.0:8000
     ```
 
     Once the server is started, open http://127.0.0.1:8000 or whatever server you are running on in a web browser.
