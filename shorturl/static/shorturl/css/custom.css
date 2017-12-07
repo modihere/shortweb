@@ -1,26 +1,54 @@
-#content {
-margin-top: 20px;
-margin-bottom: 60px;
+nav .nav-wrapper .col .brand-logo {
+	color : #9e9e9e !important; /* grey */
 }
- 
-a:hover{
-text-decoration: none;
+/* to keep window full size and footer stick to bottom */
+body{
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
- 
-header {
-border-bottom: 1px solid #eeeeee;
-margin-bottom: 30px;
-padding-bottom: 10px;
-clear: both;
+.main{
+	flex: 1 0 auto;
 }
- 
-#wrap {
-max-width: 700px;
-margin: 5px 10px 10px 10px;
-padding: 10px;
-text-align: left;
+.input-section{
+	padding:30px;
+	/*background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;*/
+	background-image: url("../image/polygon_background.jpg");
 }
-#url-result {
-color: #00e000;
-display: hidden;
+.url-input{
+	background: #fff !important;
+	color : #777 !important;
+	padding:5px 15px !important;
+	border-radius: 3px !important;
+}
+.url-submit{
+	color : #2196f3 !important; /* blue */
+	font-weight: bold;
+}
+.url-submit-container{
+	margin-top:10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+@media only screen and (max-width: 1000px)
+{
+	.url-submit-container{
+		margin-top: 1px;
+	}
+}
+.card-content{
+	padding:12px !important; 
+}
+.url-output{
+	margin-top: 30px;
+}
+.description-section{
+	margin-top:50px;
+}
+.text-center{
+	text-align: center;
 }
