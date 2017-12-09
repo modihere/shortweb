@@ -45,12 +45,29 @@
  					return $(trigger).val();
  				}		
  	 		});
+ 	 		$('#clear_btn').addClass('hide');
 		} else {
 			$('#url-result').text("Do not submit blank.");
 			clipboard.destroy(); 
 		}
 
 	}
+
+	function show_clear_btn(){
+		var url_text=$('#url').val();
+		if (url_text != '' && $('#clear_btn').hasClass('hide')){
+			$('#clear_btn').removeClass('hide');
+		}
+		else if(url_text == ''){
+			$('#clear_btn').addClass('hide');
+		}
+	}
+
+	function clear_url(){
+		$('#url').val('');
+		$('#clear_btn').addClass('hide');
+	}
+	
 </script>
 <body>
 	<!-- navbar -->

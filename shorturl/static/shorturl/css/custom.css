@@ -18,7 +18,7 @@ body{
 	background-image: url("../image/polygon_background.jpg");
 }
 .url-input{
-	background: #fff !important;
+	margin: 0 0 0 0 !important;
 	color : #777 !important;
 	padding:5px 15px !important;
 	border-radius: 3px !important;
@@ -61,4 +61,13 @@ body{
 	right: 4px;
 	padding: 0 0.3rem;
     background: #9FA4A9;
+}
+#clear_btn{
+	margin-left: 9px;
+	font-size:1.3em;
+	position: absolute;
+	right: 0px;
+}
+.url-input-container{
+	display: flex;
 }
