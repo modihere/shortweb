@@ -12,11 +12,13 @@
 	<!-- Import custom css -->
 	<link rel="stylesheet" type="text/css" href="{% static 'shorturl/css/custom.css' %}" />
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<!-- Import clipboard.js -->
+	<script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
 	<!-- Import Javascript file for materialize -->
 	<script type="text/javascript" src="{% static 'shorturl/js/materialize.min.js' %}"></script>
 </head>
 <script type="text/javascript">
-
+	var clipboard;
 	$(function() {
 		$('#submitButton').click(function() {
 			$.ajax({
@@ -34,10 +36,18 @@
 
 	function returnSuccess(data, textStatus, jqXHR) {
 		if(data.url) {
-			$('#url-result').html("Your Shorted URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>");
+			var url_result_html = "Your Shortened URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>";
+			url_result_html +=  "<button id='copy_btn' class='waves-effect waves-light btn right-align' value='"+data.url+"'> <img id='clipboard_img' src={% static 'shorturl/image/clippy.png' %} alt='Copy to clipboard' style='width:25px;height:25px;'></button>"
+			$('#url-result').html(url_result_html);
 			$('#url').val("");
+			clipboard = new Clipboard('#copy_btn', {
+ 				text: function(trigger){
+ 					return $(trigger).val();
+ 				}		
+ 	 		});
 		} else {
-			$('#url-result').text("Do not submit blank."); 
+			$('#url-result').text("Do not submit blank.");
+			clipboard.destroy(); 
 		}
 
 	}

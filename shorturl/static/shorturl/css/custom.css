@@ -52,3 +52,13 @@ body{
 .text-center{
 	text-align: center;
 }
+#clipboard_img{
+	margin-top: 5px;
+}
+#copy_btn{
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	padding: 0 0.3rem;
+    background: #9FA4A9;
+}
