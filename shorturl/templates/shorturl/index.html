@@ -6,9 +6,11 @@
 <!-- input -->
 <div class="input-section blue darken-2">
 	<div class="container row">
-		<div class="url-input-container col s12">
-			<input type="text" name="url" id="url" placeholder="Paste a link to shorten it" autocomplete="off" spellcheck="false" class="url-input"  onkeydown = "if(event.keyCode == 13)document.getElementById('submitButton').click()">
+		<div class="card url-input-container col s12">
+			<input type="text" name="url" id="url" placeholder="Paste a link to shorten it" autocomplete="off" spellcheck="false" class="url-input"  onkeydown = "if(event.keyCode == 13)document.getElementById('submitButton').click()" onkeyup="show_clear_btn();">
+			<button id='clear_btn' class="url-submit btn btn-large white text-grey hide" onclick="clear_url();">X</button>
 		</div>
+
 		<div class="url-submit-container col s12">
 			{% csrf_token %}
 			<button id="submitButton" class="url-submit btn white text-grey">Shorten It</button>
