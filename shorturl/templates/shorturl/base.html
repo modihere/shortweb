@@ -46,12 +46,14 @@
  				}		
  	 		});
  	 		$('#clear_btn').addClass('hide');
-		} else if(data.already_short) {
+		} 
+    else if(data.already_short) {
 			// show pop up error message
 			// Materialize.toast(message, displayLength, className, completeCallback);
 			var toast_content = "Entered URL is already short.";
 			Materialize.toast(toast_content, 3000, 'red lighten-1')
-		} else {
+		} 
+    else {
 			$('#url-result').text("Do not submit blank.");
 			clipboard.destroy(); 
 		}
