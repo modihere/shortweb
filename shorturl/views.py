@@ -28,13 +28,18 @@ def shorten_url(request):
         response_data['url'] = settings.SITE_URL + "/" + short_id
         return HttpResponse(json.dumps(response_data),  content_type="application/json")
     elif not (url == ''):
-        short_id = get_short_code()
-        record.update({url:short_id})
-        b = urls(httpurl=url, short_id=short_id)
-        b.save()
-        response_data = {}
-        response_data['url'] = settings.SITE_URL + "/" + short_id
-        return HttpResponse(json.dumps(response_data),  content_type="application/json")
+        # check whether input is already short 
+        if is_already_short(url):
+            response_data = {}
+            return HttpResponse(json.dumps({"already_short": True}), content_type="application/json")
+        else:
+            short_id = get_short_code()
+            record.update({url:short_id})
+            b = urls(httpurl=url, short_id=short_id)
+            b.save()
+            response_data = {}
+            response_data['url'] = settings.SITE_URL + "/" + short_id
+            return HttpResponse(json.dumps(response_data),  content_type="application/json")
     return HttpResponse(json.dumps({"error": "error occurs"}), content_type="application/json")
 
 def get_short_code():
@@ -47,3 +52,31 @@ def get_short_code():
             temp = urls.objects.get(pk=short_id)
         except:
             return short_id
+
+'''
+To check whether given URL is already short by checking existence of some popular URL shortners as a substring in URL
+
+inputs 
+url -> url link input
+
+output
+True -> if url is already short
+False -> if url is not short
+'''
+def is_already_short(url):
+    popular_shortening_urls = [
+        'bit.ly/',
+        'goo.gl/',
+        'ow.ly/',
+        'is.gd/',
+        'buff.ly/',
+        'adf.ly/',
+        'tinyurl.com/',
+        'bit.do/',
+        'mcaf.ee/',
+        settings.SITE_URL,
+    ]
+    for shortening_url in popular_shortening_urls:
+        if shortening_url in url:
+            return True
+    return False
