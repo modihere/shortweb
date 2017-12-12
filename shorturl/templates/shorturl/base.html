@@ -16,6 +16,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/clipboard@1/dist/clipboard.min.js"></script>
 	<!-- Import Javascript file for materialize -->
 	<script type="text/javascript" src="{% static 'shorturl/js/materialize.min.js' %}"></script>
+	<!-- Import Javascript file for QR Code -->
+	<script type="text/javascript" src="{% static 'shorturl/js/jquery.qrcode.min.js' %}"></script>
 </head>
 <script type="text/javascript">
 	// intializing side navbar for small screen devices
@@ -42,15 +44,24 @@
 	function returnSuccess(data, textStatus, jqXHR) {
 		if(data.url && !data.error) {
 			var url_result_html = "Your Shortened URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>";
-			url_result_html +=  "<button id='copy_btn' class='waves-effect waves-light btn right-align' value='"+data.url+"'> <img id='clipboard_img' src={% static 'shorturl/image/clippy.png' %} alt='Copy to clipboard' style='width:25px;height:25px;'></button>"
 			$('#url-result').html(url_result_html);
 			$('#url').val("");
-			clipboard = new Clipboard('#copy_btn', {
+ 	 		$('#clear_btn').addClass('hide');
+
+			// Button
+			var clipboard = new Clipboard('#clip_copy', {
  				text: function(trigger){
- 					return $(trigger).val();
+ 					return data.url;
  				}		
  	 		});
- 	 		$('#clear_btn').addClass('hide');
+			$('#clip_copy').removeClass("disabled");
+
+			// QR Code
+			$('#qr-code').html('');
+			$('#qr-code').qrcode({
+				width: 80, height: 80,		// Select width and height of QR Code here
+				text: data.url
+			});
 		} 
     else if(data.already_short) {
 			// show pop up error message
@@ -87,7 +98,7 @@
 	<nav>
 		<div class="nav-wrapper row white grey-text">
 			<div class="col s12">
-				<a href="{% url 'shorturl:home' %}" class="brand-logo ">Url Shortener</a>
+				<a href="{% url 'shorturl:home' %}" class="brand-logo ">URL Shortener</a>
 				<a href="#" data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
 				<!-- for large screen -->
 				<ul class="right hide-on-med-and-down">
