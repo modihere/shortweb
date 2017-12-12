@@ -40,7 +40,7 @@
 	});
 
 	function returnSuccess(data, textStatus, jqXHR) {
-		if(data.url) {
+		if(data.url && !data.error) {
 			var url_result_html = "Your Shortened URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>";
 			url_result_html +=  "<button id='copy_btn' class='waves-effect waves-light btn right-align' value='"+data.url+"'> <img id='clipboard_img' src={% static 'shorturl/image/clippy.png' %} alt='Copy to clipboard' style='width:25px;height:25px;'></button>"
 			$('#url-result').html(url_result_html);
@@ -58,8 +58,9 @@
 			var toast_content = "Entered URL is already short.";
 			Materialize.toast(toast_content, 3000, 'red lighten-1')
 		} 
-    else {
-			$('#url-result').text("Do not submit blank.");
+    else {	
+    		if (data.url=='') $('#url-result').text("Do not submit blank.");
+    		else $('#url-result').text("Enter a valid URL");
 			clipboard.destroy(); 
 		}
 
