@@ -18,6 +18,11 @@
 	<script type="text/javascript" src="{% static 'shorturl/js/materialize.min.js' %}"></script>
 </head>
 <script type="text/javascript">
+	// intializing side navbar for small screen devices
+	$( document ).ready(function(){
+		$(".button-collapse").sideNav();
+	});
+
 	var clipboard;
 	$(function() {
 		$('#submitButton').click(function() {
@@ -82,7 +87,13 @@
 		<div class="nav-wrapper row white grey-text">
 			<div class="col s12">
 				<a href="{% url 'shorturl:home' %}" class="brand-logo ">Url Shortener</a>
-				<ul id="nav-mobile" class="right hide-on-med-and-down">
+				<a href="#" data-activates="mobile-demo" class="button-collapse grey-text"><i class="material-icons">menu</i></a>
+				<!-- for large screen -->
+				<ul class="right hide-on-med-and-down">
+					<li><a href="https://github.com/modihere/url-shortener" target="blank" class="btn grey">Contribute</a></li>
+				</ul>
+				<!-- for small screen -->
+				<ul class="side-nav" id="mobile-demo">
 					<li><a href="https://github.com/modihere/url-shortener" target="blank" class="btn grey">Contribute</a></li>
 				</ul>
 			</div>
