@@ -1,5 +1,5 @@
 {% extends "shorturl/base.html" %}
-  
+{% load staticfiles %}
 {% block title %}URL Shortner - Make your URL shorter!{% endblock %}
   
 {% block content %}
@@ -7,7 +7,7 @@
 <div class="input-section blue darken-2">
 	<div class="container row">
 		<div class="card url-input-container col s12">
-			<input type="text" name="url" id="url" placeholder="Paste a link to shorten it" autocomplete="off" spellcheck="false" class="url-input"  onkeydown = "if(event.keyCode == 13)document.getElementById('submitButton').click()" onkeyup="show_clear_btn();">
+			<input type="text" name="url" id="url" placeholder="Paste a link to shorten it, generates QR code too" autocomplete="off" spellcheck="false" class="url-input"  onkeydown = "if(event.keyCode == 13)document.getElementById('submitButton').click()" onkeyup="show_clear_btn();">
 			<button id='clear_btn' class="url-submit btn btn-large white text-grey hide" onclick="clear_url();">X</button>
 		</div>
 
@@ -17,10 +17,16 @@
 		</div>
 
 		<div class="url-output col l6 offset-l3 m8 offset-m2 s12 ">
-			<div class="card grey lighten-4 ">
-				<div class="card-content" id="url-result">
+			<div class="card horizontal grey lighten-4 ">
+				<div class="card-image" style="padding: 10px 10px 5px 10px">
+					<div id="qr-code"></div>
+				</div>
+				<div class="card-content valign-wrapper" id="url-result">
 					Enter the URL above and click SHORTEN IT!
 				</div>
+				<a class="btn-floating halfway-fab waves-effect waves-light red disabled" id="clip_copy" title="Copy to clipboard">
+					<i class="material-icons">content_copy</i>
+				</a>
 			</div>
 		</div>
 	</div>
@@ -38,9 +44,9 @@
 		<p>Shorten your URL so it’s ready to be shared everywhere</p>
 	</div>
 	<div class="section col l4 m6 s12">
-		<i class="small material-icons">mood</i>
-		<h5>Easy</h5>
-		<p>Very simple and easy to use</p>
+		<img src={% static 'shorturl/image/qr.svg' %} style='width:32px;height:32px;' />
+		<h5>QR Code</h5>
+		<p>Generates QR code for convenience and can be shared easily</p>
 	</div>
 	<div class="section col l4 m6 s12">
 		<i class="small material-icons">people</i>
