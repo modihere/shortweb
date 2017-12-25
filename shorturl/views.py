@@ -75,6 +75,13 @@ def is_already_short(url):
         'tinyurl.com/',
         'bit.do/',
         'mcaf.ee/',
+        't.co/',
+        'tiny.cc/',
+        'shorte.st/',
+        'idek.net/',
+        'po.st/',
+        'yep.it/',
+        'tr.im/',
         settings.SITE_URL,
     ]
     for shortening_url in popular_shortening_urls:
