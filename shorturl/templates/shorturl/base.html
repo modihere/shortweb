@@ -43,7 +43,7 @@
 
 	function returnSuccess(data, textStatus, jqXHR) {
 		if(data.url && !data.error) {
-			var url_result_html = "Your Shortened URL is : <a target=_blank href='"+data.url+"'>"+data.url+"</a>";
+			var url_result_html = "<a target=_blank href='"+data.url+"'>"+data.url+"</a>";
 			$('#url-result').html(url_result_html);
 			$('#url').val("");
  	 		$('#clear_btn').addClass('hide');
