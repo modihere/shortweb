@@ -33,7 +33,8 @@
 				url: "/makeshort/",
 				data: {
 					'url' : $('#url').val(),
-					'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val()
+					'csrfmiddlewaretoken' : $("input[name=csrfmiddlewaretoken]").val(),
+					'alias' : $('#alias').val(),
 				},
 				success: returnSuccess,
 				dataType: 'json'
@@ -46,10 +47,11 @@
 			var url_result_html = "<a target=_blank href='"+data.url+"'>"+data.url+"</a>";
 			$('#url-result').html(url_result_html);
 			$('#url').val("");
+			$('#alias').val("");
  	 		$('#clear_btn').addClass('hide');
 
 			// Button
-			var clipboard = new Clipboard('#clip_copy', {
+			clipboard = new Clipboard('#clip_copy', {
  				text: function(trigger){
  					return data.url;
  				}		
@@ -67,11 +69,15 @@
 			// show pop up error message
 			// Materialize.toast(message, displayLength, className, completeCallback);
 			var toast_content = "Entered URL is already short.";
-			Materialize.toast(toast_content, 3000, 'red lighten-1')
+			Materialize.toast(toast_content, 3000, 'red lighten-1');
+			$('#qr-code').html('');
+
 		} 
     else {	
     		if (data.url=='') $('#url-result').text("Do not submit blank.");
+    		else if (data.alias==-1) $('#url-result').text("Alias already in use. Try another.");
     		else $('#url-result').text("Enter a valid URL");
+    		$('#qr-code').html('');
 			clipboard.destroy(); 
 		}
 

@@ -4,13 +4,16 @@
   
 {% block content %}
 <!-- input -->
+
 <div class="input-section blue darken-2">
 	<div class="container row">
 		<div class="card url-input-container col s12">
 			<input type="text" name="url" id="url" placeholder="Paste a link to shorten it, generates QR code too" autocomplete="off" spellcheck="false" class="url-input"  onkeydown = "if(event.keyCode == 13)document.getElementById('submitButton').click()" onkeyup="show_clear_btn();">
 			<button id='clear_btn' class="url-submit btn btn-large white text-grey hide" onclick="clear_url();">X</button>
 		</div>
-
+		<div class="card url-input-container col s6 offset-m3">
+			<input type="text" name="alias" id="alias" class="url-input" placeholder="Enter your alias (optional)" autocomplete="off" spellcheck="false" maxlength="10">
+		</div>
 		<div class="url-submit-container col s12">
 			{% csrf_token %}
 			<button id="submitButton" class="url-submit btn white text-grey">Shorten It</button>
@@ -31,6 +34,20 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	document.getElementById('alias').onkeydown = function (event) {
+  var event = event || window.event;  // get event object
+  var key = event.keyCode || event.which; // get key cross-browser
+  
+  if (key == 32) { //Space bar key code
+    //Prevent default action, which is inserting space
+    if (event.preventDefault) event.preventDefault(); //normal browsers
+    event.returnValue = false; //IE
+  }
+};
+</script>
+
 <!-- //input -->
 <!-- Description -->
 <div class="container row description-section text-center">
