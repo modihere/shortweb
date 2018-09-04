@@ -21,12 +21,12 @@ def redirect_original(request, short_id):
  
 def shorten_url(request):
 	url = request.POST.get("url", '')
-	alias = request.POST.get("alias", '')
+	alias = request.POST.get("alias")
 	valid_url,url=validate_url(url)
 	if valid_url:
 		if alias !='':
 			for rec in record:
-				if record[rec]==alias and url!=rec:
+				if record[rec]==alias:
 					return HttpResponse(json.dumps({"error":"error occurs", 'alias':-1, 'url':url}),content_type="application/json")
 
 		if url in record:
@@ -36,14 +36,16 @@ def shorten_url(request):
 				b.short_id=alias
 				b.save()		
 				short_id = alias
-				#record[url]=alias
+				record[url]=alias
 			response_data = {}
 			response_data['url'] = settings.SITE_URL + "/" + short_id
 			return HttpResponse(json.dumps(response_data),  content_type="application/json")
 		else:
-			# check whether input is already short 
-			
-			if alias == '':
+			# check whether input is already short
+			if is_already_short(url):
+				response_data = {}
+				return HttpResponse(json.dumps({"already_short": True}), content_type="application/json")
+			elif alias == '':
 				short_id = get_short_code()
 				record.update({url:short_id})
 				b = urls(httpurl=url, short_id=short_id)
@@ -51,10 +53,6 @@ def shorten_url(request):
 				response_data = {}
 				response_data['url'] = settings.SITE_URL + "/" + short_id
 				return HttpResponse(json.dumps(response_data),  content_type="application/json")
-
-			elif is_already_short(url):
-				response_data = {}
-				return HttpResponse(json.dumps({"already_short": True}), content_type="application/json")
 
 			else:
 				record.update({url:alias})
